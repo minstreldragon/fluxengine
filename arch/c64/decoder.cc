@@ -71,18 +71,29 @@ public:
 		const auto& bits = readRawBits(5*10);
 		const auto& bytes = decode(bits).slice(0, 5);
 
+		_sector->data = bytes;
+
 		uint8_t checksum = bytes[0];
 		_sector->logicalSector = bytes[1];
 		_sector->logicalSide = 0;
 		_sector->logicalTrack = bytes[2] - 1;
+		if (_sector->logicalTrack == 5)
+	    {
+			std::cerr << "track 6 sector " << _sector->logicalSector;
+		}
 		if (checksum == xorBytes(bytes.slice(1, 4)))
 			_sector->status = Sector::DATA_MISSING; /* unintuitive but correct */
+        else
+            _sector->status = Sector::HEADER_BAD_CHECKSUM;
 	}
 
     void decodeDataRecord() override
 	{
 		if (readRaw20() != C64_DATA_RECORD)
+        {
+            _sector->status = Sector::MISSING;
 			return;
+        }
 
 		const auto& bits = readRawBits(259*10);
 		const auto& bytes = decode(bits).slice(0, 259);
