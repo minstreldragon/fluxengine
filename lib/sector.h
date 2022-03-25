@@ -21,7 +21,10 @@ public:
         MISSING,
         DATA_MISSING,
         CONFLICT,
-        INTERNAL_ERROR
+        INTERNAL_ERROR,
+        HEADER_MISSING,
+        HEADER_BAD_CHECKSUM,
+        HEADER_ID_MISMATCH
     };
 
     static std::string statusToString(Status status);
@@ -40,6 +43,7 @@ public:
     unsigned logicalTrack = 0;
     unsigned logicalSide = 0;
     unsigned logicalSector = 0;
+    Bytes headerData;
     Bytes data;
     std::vector<std::shared_ptr<Record>> records;
 
