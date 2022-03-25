@@ -17,6 +17,9 @@ std::unique_ptr<ImageWriter> ImageWriter::create(const ImageWriterProto& config)
 		case ImageWriterProto::kImg:
 			return ImageWriter::createImgImageWriter(config);
 
+		case ImageWriterProto::kAtr:
+			return ImageWriter::createAtrImageWriter(config);
+
 		case ImageWriterProto::kD64:
 			return ImageWriter::createD64ImageWriter(config);
 
@@ -43,6 +46,7 @@ void ImageWriter::updateConfigForFilename(ImageWriterProto* proto, const std::st
 	static const std::map<std::string, std::function<void(ImageWriterProto*)>> formats =
 	{
 		{".adf",      [](auto* proto) { proto->mutable_img(); }},
+		{".atr",      [](auto* proto) { proto->mutable_atr(); }},
 		{".d64",      [](auto* proto) { proto->mutable_d64(); }},
 		{".d81",      [](auto* proto) { proto->mutable_img(); }},
 		{".diskcopy", [](auto* proto) { proto->mutable_diskcopy(); }},

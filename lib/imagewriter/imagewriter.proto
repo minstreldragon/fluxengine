@@ -3,6 +3,7 @@ syntax = "proto2";
 import "lib/imagereader/imagereader.proto";
 import "lib/common.proto";
 
+message AtrOutputProto {}
 message D64OutputProto {}
 
 message LDBSOutputProto {
@@ -40,6 +41,7 @@ message ImageWriterProto {
 		DiskCopyOutputProto diskcopy = 5;
 		NsiOutputProto nsi = 6;
 		RawOutputProto raw = 7;
+                AtrOutputProto atr = 8;
 	}
 }
 

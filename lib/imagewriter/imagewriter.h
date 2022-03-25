@@ -14,6 +14,7 @@ public:
     static std::unique_ptr<ImageWriter> create(const ImageWriterProto& config);
 	static void updateConfigForFilename(ImageWriterProto* proto, const std::string& filename);
 
+    static std::unique_ptr<ImageWriter> createAtrImageWriter(const ImageWriterProto& config);
     static std::unique_ptr<ImageWriter> createD64ImageWriter(const ImageWriterProto& config);
     static std::unique_ptr<ImageWriter> createDiskCopyImageWriter(const ImageWriterProto& config);
     static std::unique_ptr<ImageWriter> createImgImageWriter(const ImageWriterProto& config);
